@@ -1,0 +1,449 @@
+<div class='row'>
+    <h2 class="text-center">Loan Details</h2>
+    <form role="form" [formGroup]="loanDataForm">
+
+        <div class="container border">
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="name">{{constants.LOANPURPOSE}}</label><span>*</span>
+                        <select formControlName="loanPurpose" class="form-control" (change)="loanValue($event)"
+                            [ngClass]="{ 'is-invalid': submitted && f.loanPurpose.errors }">
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div *ngIf="submitted && f.loanPurpose.errors" class="invalid-feedback">
+                            <div *ngIf="f.loanPurpose.errors.required">Loan Purpose is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col" *ngIf="isLoan">
+                    <div class="form-group">
+                        <label for=" homeBuyer">First Time Home Buyer</label><span>*</span><img
+                            src="assets/images/info-icon.JPG">
+                        <select formControlName="homeBuyer" class="form-control "
+                            [ngClass]="{ 'is-invalid': submitted && f.homeBuyer.errors }">
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div *ngIf="submitted && f.homeBuyer.errors" class="invalid-feedback">
+                            <div *ngIf="f.homeBuyer.errors.required">Home Buyer is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label for="zipCode">Zip Code</label><span>*</span>
+                        <input formControlName="zipCode" type="number" minlength="8"
+                            [ngClass]="{ 'is-invalid': submitted && f.zipCode.errors }" class="form-control">
+                        <div *ngIf="submitted && f.zipCode.errors" class="invalid-feedback">
+                            <div *ngIf="f.zipCode.errors.required">Zip Code is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label for="price">Property Value/Sales Price</label><span>*</span><img
+                            src="assets/images/info-icon.JPG">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="text" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.price.errors }" formControlName="price"
+                                aria-label="Amount (to the nearest dollar)">
+                            <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                                <div *ngIf="f.price.errors && f.price.errors.required">Sales Price is required.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="name">Down Payment</label><span>*</span><img src="assets/images/info-icon.JPG">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="text" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.payment.errors }" formControlName="payment"
+                                aria-label="Amount (to the nearest dollar)"><span class="m-1"></span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest percentage)">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">%</span>
+                            </div>
+                            <div *ngIf="submitted && f.payment.errors" class="invalid-feedback">
+                                <div *ngIf="f.payment.errors.required">Down Payment is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label for=" homeBuyer">Type of Refinance</label><span>*</span><img
+                            src="assets/images/info-icon.JPG">
+                        <select formControlName="refinance" class="form-control "
+                            [ngClass]="{ 'is-invalid': submitted && f.refinance.errors }">
+                            <option value="select" disabled>Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div *ngIf="submitted && f.refinance.errors" class="invalid-feedback">
+                            <div *ngIf="f.refinance.errors.required">Type of Refinance is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label for="zipCode">Mortage/Debit Balance</label><span>*</span><img
+                            src="assets/images/info-icon.JPG">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="text" class="form-control" formControlName="mortage"
+                                [ngClass]="{ 'is-invalid': submitted && f.mortage.errors }"
+                                aria-label="Amount (to the nearest dollar)">
+                            <div *ngIf="submitted && f.mortage.errors" class="invalid-feedback">
+                                <div *ngIf="f.mortage.errors && f.mortage.errors.required">Mortage is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label for="zipCode">Cash Out</label><span>*</span>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="text" class="form-control" formControlName="cashOut"
+                                [ngClass]="{ 'is-invalid': submitted && f.cashOut.errors }"
+                                aria-label="Amount (to the nearest dollar)">
+                            <div *ngIf="submitted && f.cashOut.errors" class="invalid-feedback">
+                                <div *ngIf="f.cashOut.errors && f.cashOut.errors.required">Cash Out is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="name">Lock Period</label><span>*</span><img src="assets/images/info-icon.JPG">
+                        <select formControlName="lockPeriod" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.lockPeriod.errors }">
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div *ngIf="submitted && f.lockPeriod.errors" class="invalid-feedback">
+                            <div *ngIf="f.lockPeriod.errors.required">Lock Period is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for=" homeBuyer">Credit Score</label><span>*</span>
+                        <select formControlName="creditScore" class="form-control "
+                            [ngClass]="{ 'is-invalid': submitted && f.creditScore.errors }">
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div *ngIf="submitted && f.creditScore.errors" class="invalid-feedback">
+                            <div *ngIf="f.creditScore.errors.required">Credit Score is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="name">Property Type</label><span>*</span>
+                        <select formControlName="propertyType" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.propertyType.errors }">
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div *ngIf="submitted && f.propertyType.errors" class="invalid-feedback">
+                            <div *ngIf="f.propertyType.errors.required">Property Type is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label for=" homeBuyer">Property Use</label><span>*</span><img
+                            src="assets/images/info-icon.JPG">
+                        <select formControlName="propertyUse" class="form-control "
+                            [ngClass]="{ 'is-invalid': submitted && f.propertyUse.errors }">
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div *ngIf="submitted && f.propertyUse.errors" class="invalid-feedback">
+                            <div *ngIf="f.propertyUse.errors.required">Property Use is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for=" homeBuyer">Loan Type</label><span>*</span><img src="assets/images/info-icon.JPG">
+                        <select formControlName="loanType" class="form-control "
+                            [ngClass]="{ 'is-invalid': submitted && f.loanType.errors }">
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div *ngIf="submitted && f.loanType.errors" class="invalid-feedback">
+                            <div *ngIf="f.loanType.errors.required">Loan Type is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col mt-4">
+                    <label class="main">Seeking VA Loan Option<img src="assets/images/info-icon.JPG">
+                        <input type="checkbox" id="enableDisable" (change)="isChecked()">
+                        <span class="loanoptn"></span>
+                    </label>
+                </div>
+                <div class="col" *ngIf="isShow">
+                    <div class="form-group">
+                        <label for="name">Military Status</label><span>*</span>
+                        <select formControlName="militaryStatus" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.militaryStatus.errors }">
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div *ngIf="submitted && f.militaryStatus.errors" class="invalid-feedback">
+                            <div *ngIf="f.militaryStatus.errors.required">Military Status is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col" *ngIf="isShow">
+                    <div class="form-group">
+                        <label for=" homeBuyer">Any Previous VA Loan</label><span>*</span>
+                        <select formControlName="VAloan" class="form-control "
+                            [ngClass]="{ 'is-invalid': submitted && f.VAloan.errors }">
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div *ngIf="submitted && f.VAloan.errors" class="invalid-feedback">
+                            <div *ngIf="f.VAloan.errors.required">VA Loan is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col" *ngIf="isShow">
+                    <div class="form-group">
+                        <label for=" homeBuyer">Exempt From VA Funding Fee</label><span>*</span><img
+                            src="assets/images/info-icon.JPG">
+                        <select formControlName="fundingFee" class="form-control "
+                            [ngClass]="{ 'is-invalid': submitted && f.fundingFee.errors }">
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        <div *ngIf="submitted && f.fundingFee.errors" class="invalid-feedback">
+                            <div *ngIf="f.fundingFee.errors.required">Funding Fee is required</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mt-4">
+                <div class="col mt-4">
+                    <!-- <input  name="off" type="checkbox" checked="checked"> -->
+                    <label class="main">Include Homeowners Insurance and Property Taxes<img
+                            src="assets/images/info-icon.JPG">
+                        <input type="checkbox" checked="checked">
+                        <span class="loanoptn"></span>
+                    </label>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="price">Property Taxes</label><span>*</span><img src="assets/images/info-icon.JPG">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="text" class="form-control" formControlName="propertyTax"
+                                [ngClass]="{ 'is-invalid': submitted && f.propertyTax.errors }"
+                                aria-label="Amount (to the nearest dollar)">
+                            <div *ngIf="submitted && f.propertyTax.errors" class="invalid-feedback">
+                                <div *ngIf="f.propertyTax.errors && f.propertyTax.errors.required">Property Taxes is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label for="price">Homeowners Insurance</label><span>*</span><img
+                            src="assets/images/info-icon.JPG">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="text" class="form-control" formControlName="insurance"
+                                [ngClass]="{ 'is-invalid': submitted && f.insurance.errors }"
+                                aria-label="Amount (to the nearest dollar)">
+                            <div *ngIf="submitted && f.insurance.errors" class="invalid-feedback">
+                                <div *ngIf="f.insurance.errors && f.insurance.errors.required">Insurance is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mt-4">
+                    <!-- <div class="form-group">
+                        <button type="button" class="btn-info">Get My rates</button>
+                    </div> -->
+                </div>
+            </div>
+
+        </div>
+
+        <div class="submit text-center m-5">
+            <button class="btn btn-primary" (click)="onSubmit()" type="submit">Submit</button>
+        </div>
+        <div class="submit text-center">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Open Modal
+            </button>
+        </div>
+
+    </form>
+
+    
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="exampleModalLabel">Login Form</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-id">
+                    <!-- <perfect-scrollbar class="scroll-container"  #psRight [scrollIndicators]="true" (psYReachEnd)="onScrollEvent($event)" fxFlex="auto"> -->
+                    <form [formGroup]="loginForm" class="scrollable-content">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="name" class="form-control" id="name" formControlName="name"
+                                [ngClass]="{ 'is-invalid': modalFormsubmitted && fVal.name.errors }">
+                            <div *ngIf="modalFormsubmitted && fVal.name.errors" class="invalid-feedback">
+                                <div *ngIf="fVal.name.errors && fVal.name.errors.required">Name is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lname" class="form-label">Last Name</label>
+                            <input type="lname" class="form-control" id="lname" formControlName="lname"
+                                [ngClass]="{ 'is-invalid': modalFormsubmitted && fVal.lname.errors }"
+                                aria-describedby="lname">
+                            <div *ngIf="modalFormsubmitted && fVal.lname.errors" class="invalid-feedback">
+                                <div *ngIf="fVal.lname.errors && fVal.lname.errors.required">Last Name is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" formControlName="email"
+                                [ngClass]="{ 'is-invalid': modalFormsubmitted && fVal.email.errors }"
+                                aria-describedby="emailHelp">
+                            <div *ngIf="modalFormsubmitted && fVal.email.errors" class="invalid-feedback">
+                                <div *ngIf="fVal.email.errors && fVal.email.errors.required">Email is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" formControlName="pwd"
+                                [ngClass]="{ 'is-invalid': modalFormsubmitted && fVal.pwd.errors }">
+                            <div *ngIf="modalFormsubmitted && fVal.pwd.errors" class="invalid-feedback">
+                                <div *ngIf="fVal.pwd.errors && fVal.pwd.errors.required">Password is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="age" class="form-label">Age</label>
+                            <input type="age" class="form-control" id="age" formControlName="age"
+                                [ngClass]="{ 'is-invalid': modalFormsubmitted && fVal.age.errors }"
+                                aria-describedby="emailHelp">
+                            <div *ngIf="modalFormsubmitted && fVal.age.errors" class="invalid-feedback">
+                                <div *ngIf="fVal.age.errors && fVal.age.errors.required">Age is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="number" class="form-control" id="phone" formControlName="phone"
+                                [ngClass]="{ 'is-invalid': modalFormsubmitted && fVal.phone.errors }">
+                            <div *ngIf="modalFormsubmitted && fVal.phone.errors" class="invalid-feedback">
+                                <div *ngIf="fVal.phone.errors && fVal.phone.errors.required">Phone is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="address" class="form-control" id="address" formControlName="address"
+                                [ngClass]="{ 'is-invalid': modalFormsubmitted && fVal.email.errors }"
+                                aria-describedby="emailHelp">
+                            <div *ngIf="modalFormsubmitted && fVal.address.errors" class="invalid-feedback">
+                                <div *ngIf="fVal.address.errors && fVal.address.errors.required">Address is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <button type="button" id="on-submit" class="btn btn-primary modal-submit"
+                            (click)="onModalSubmit()">Login</button>
+                    </form>
+                    <!-- </perfect-scrollbar> -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+.main {
+    display: block;
+    position: relative;
+    padding-left: 45px;
+    margin-bottom: 15px;
+}
+  
+/* Hide the default checkbox */
+input[type=checkbox] {
+    visibility: hidden;
+    
+}
+
+/* Creating a custom checkbox
+based on demand */
+.loanoptn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: white;
+    border: 2px solid black;
+}
+.main input:checked ~ .loanoptn {
+    background-color: #019dce!important;
+}
+
+  
+.loanoptn:after {
+    content: "";
+    position: absolute;
+    display: block;
+    border: 2px solid;
+
+}
+  
+/* Display checkmark when checked */
+.main input:checked ~ .loanoptn:after {
+    display: block;
+}
+  
+.main .loanoptn:after {
+    left: 8px;
+    bottom: 7px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.modal .modal-content{
+    overflow:hidden;
+    }
+    .modal-body{
+        max-height: calc(100vh - 210px);
+        overflow-y:scroll; 
+    }
+    /* .scroll-container {
+        position: relative;
+      }
+      
+      .scrollable-content {
+        padding: 16px;
+        margin: 0;
+      } */
+
